@@ -1,8 +1,10 @@
 # :scroll: Django Cheat Sheet
+
 A cheat-sheet for creating web apps with the Django framework using the Python language. Most of the summaries and examples are based on [the official documentation](https://docs.djangoproject.com/en/2.0/) for Django v2.0.
 
 ## Sections
-- :snake: [Initializing pipenv](#snake-initializing-pipenv-optional) (optional)
+
+- :snake: [Initializing VirtualEnv](#snake-initializing-virtualenv)
 - :blue_book: [Creating a project](#blue_book-creating-a-project)
 - :page_with_curl: [Creating an app](#page_with_curl-creating-an-app)
 - :tv: [Creating a view](#tv-creating-a-view)
@@ -11,9 +13,24 @@ A cheat-sheet for creating web apps with the Django framework using the Python l
 - :postbox: [Creating model objects and queries](#postbox-creating-model-objects-and-queries)
 - :man: [Using the Admin page](#man-using-the-admin-page)
 
+## :snake: Initializing VirtualEnv
 
-## :snake: Initializing pipenv (optional)
 - Make main folder with `$ mkdir <folder>` and navigate to it with `$ cd <folder>`
+
+### Using venv (make sure you are in your project root directory)
+
+- Initialize virtual env with `$ python3 -m venv .venv`
+- Activate your virtual env
+  - Mac/Linux:
+    - `$ . .venv/bin/activate`
+  - Windows:
+    - `$ .venv\Scripts\activate`
+- Install django with `$ pip install django`
+- Install other package dependencies with `$ pip install <package_name>`
+- Pin your requirements `pip freeze > requirements.txt`
+
+### Using Pipenv
+
 - Initialize pipenv with `$ pipenv install`
 - Enter pipenv shell with `$ pipenv shell`
 - Install django with `$ pipenv install django`
@@ -75,8 +92,8 @@ project/
 - To include this app in your project, add your app to the project's `settings.py` file by adding its name to the `INSTALLED_APPS` list:
 ```python
 INSTALLED_APPS = [
-	'app',
-	# ...
+    'app',
+    # ...
 ]
 ```
 - To migrate changes over:
@@ -140,7 +157,7 @@ def index(request):
 - To include context to the template:
 ```python
 def index(request):
-	context = {"context_variable": context_variable}
+    context = {"context_variable": context_variable}
     return render(request,'index.html', context)
 ```
 - Within the HTML file, you can reference static files by adding the following:
@@ -149,19 +166,19 @@ def index(request):
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<link rel="stylesheet" href="{% static 'styles.css' %}">
-	</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
 </html>
 ```
 - To make sure to include the following in your `settings,py`:
 ```python
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-	os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static")
 ]
 ```
 - To add an `extends`:
@@ -177,7 +194,7 @@ Hello, World!
 - And then in `base.html` add:
 ```html
 <body>
-	{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 </body>
 ```
 
@@ -187,8 +204,8 @@ Hello, World!
 from django.db import models
 
 class Person(models.Model):
-	first_name = models.CharField(max_length=30)
-	last_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
 ```
 *Note that you don't need to create a primary key, Django automatically adds an IntegerField.*
 
@@ -233,7 +250,7 @@ class Pizza(models.Model):
 ```python
 ForeignKey(SomeModel, unique=True)
 ```
-	
+    
 - For more detail, the [official documentation for database models]( https://docs.djangoproject.com/en/2.0/topics/db/models/) provides a lot of useful information and examples.
 
 ## :postbox: Creating model objects and queries
