@@ -37,10 +37,12 @@ A cheat-sheet for creating web apps with the Django framework using the Python l
 - Install other package dependencies with `$ pipenv install <package_name>`
 
 ## :blue_book: Creating a project
+
 - Navigate to main folder with `$ cd <folder>`
 - Create project with `$ django-admin startproject <project_name>`
 
 The project directory should look like this:
+
 ```
 project/
     manage.py
@@ -50,25 +52,32 @@ project/
         urls.py
         wsgi.py
 ```
+
 - Run the development server with `$ python manage.py runserver` within the project directory
 - If you want your `SECRET_KEY` to be more secure, you can set it to reference an environment variable
 - In the `settings.py` file within the project directory change the `SECRET_KEY` line to the following:
+
 ```python
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'my-super-secret-key')
 ```
+
 - To quickly generate a random hex for your secret key:
+
 ```python
 >>> import secrets
 >>> secrets.token_hex()
 ```
+
 - You can set this environment variable in your shell with `export SECRET_KEY=<secret_key>`
 
 ## :page_with_curl: Creating an app
+
 - Navigate to the outer project folder  `$ cd <outer_project_folder>`
 - Create app with  `$ python manage.py startapp <app_name>`
 - Inside the `app` folder, create a file called `urls.py`
 
 The project directory should now look like this:
+
 ```
 project/
     manage.py
@@ -78,7 +87,7 @@ project/
         settings.py
         urls.py
         wsgi.py
-    app/
+    app_name/
         migrations/
             __init__.py
         __init__.py
@@ -89,14 +98,18 @@ project/
         urls.py
         views.py
 ```
+
 - To include this app in your project, add your app to the project's `settings.py` file by adding its name to the `INSTALLED_APPS` list:
+
 ```python
 INSTALLED_APPS = [
-    'app',
+    'app_name.apps.AppNameConfig',
     # ...
 ]
 ```
+
 - To migrate changes over:
+
 ```bash
 $ python manage.py migrate
 ```
